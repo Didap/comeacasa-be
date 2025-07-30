@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stanzas",
+  "info": {
+    "singularName": "stanza",
+    "pluralName": "stanzas",
+    "displayName": "Stanza"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nome": {
+      "type": "text"
+    },
+    "Posizione": {
+      "type": "text"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "stanzas"
+    },
+    "Foto": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Descrizione": {
+      "type": "text"
+    },
+    "Costo": {
+      "type": "integer"
+    },
+    "Stato": {
+      "type": "enumeration",
+      "enum": [
+        "Indipendente",
+        "Semi-indipendente",
+        "Fragile"
+      ]
+    },
+    "Citta": {
+      "type": "text"
+    }
+  }
+}
