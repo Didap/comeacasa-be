@@ -410,6 +410,7 @@ export interface ApiStanzaStanza extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    Via: Schema.Attribute.Text;
   };
 }
 
