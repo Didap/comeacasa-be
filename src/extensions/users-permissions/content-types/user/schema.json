@@ -66,11 +66,44 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "stanzas": {
+    "nome": {
+      "type": "string"
+    },
+    "cognome": {
+      "type": "string"
+    },
+    "telefono": {
+      "type": "string"
+    },
+    "tipo_utente": {
+      "type": "enumeration",
+      "enum": [
+        "client",
+        "host",
+        "admin"
+      ],
+      "default": "client"
+    },
+    "foto_profilo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "contatti_indirizzo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.indirizzo"
+    },
+    "descrizione": {
+      "type": "richtext"
+    },
+    "stanze": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::stanza.stanza",
-      "mappedBy": "users_permissions_user"
+      "mappedBy": "user"
     }
   }
 }

@@ -373,44 +373,83 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiStanzaStanza extends Struct.CollectionTypeSchema {
-  collectionName: 'stanzas';
+export interface ApiSpecificaSpecifica extends Struct.CollectionTypeSchema {
+  collectionName: 'specifiche';
   info: {
+    description: 'Servizi e regole della casa';
+    displayName: 'Specifica';
+    pluralName: 'specifiche';
+    singularName: 'specifica';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    icona: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::specifica.specifica'
+    > &
+      Schema.Attribute.Private;
+    nome: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    stanze: Schema.Attribute.Relation<'manyToMany', 'api::stanza.stanza'>;
+    tipologia: Schema.Attribute.Enumeration<['service', 'rule']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'service'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStanzaStanza extends Struct.CollectionTypeSchema {
+  collectionName: 'stanze';
+  info: {
+    description: 'Appartamenti e Stanze';
     displayName: 'Stanza';
-    pluralName: 'stanzas';
+    pluralName: 'stanze';
     singularName: 'stanza';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    Citta: Schema.Attribute.Text;
-    Costo: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Descrizione: Schema.Attribute.Text;
-    Foto: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    descrizione: Schema.Attribute.RichText;
+    disponibilita: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    galleria: Schema.Attribute.Media<'images', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::stanza.stanza'
     > &
       Schema.Attribute.Private;
-    Nome: Schema.Attribute.Text;
-    Posizione: Schema.Attribute.Text;
+    nome: Schema.Attribute.String & Schema.Attribute.Required;
+    numero_stanze: Schema.Attribute.Integer;
+    posizione: Schema.Attribute.Component<'shared.indirizzo', false> &
+      Schema.Attribute.Required;
+    prezzo: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
-    Stato: Schema.Attribute.Enumeration<
-      ['Indipendente', 'Semi-indipendente', 'Fragile']
+    slug: Schema.Attribute.UID<'nome'> & Schema.Attribute.Required;
+    specifiche: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::specifica.specifica'
     >;
+    tipologia_letti: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    users_permissions_user: Schema.Attribute.Relation<
+    user: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    Via: Schema.Attribute.Text;
   };
 }
 
@@ -872,22 +911,27 @@ export interface PluginUsersPermissionsUser
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    cognome: Schema.Attribute.String;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    contatti_indirizzo: Schema.Attribute.Component<'shared.indirizzo', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    descrizione: Schema.Attribute.RichText;
     email: Schema.Attribute.Email &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    foto_profilo: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
+    nome: Schema.Attribute.String;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
@@ -900,7 +944,10 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    stanzas: Schema.Attribute.Relation<'oneToMany', 'api::stanza.stanza'>;
+    stanze: Schema.Attribute.Relation<'oneToMany', 'api::stanza.stanza'>;
+    telefono: Schema.Attribute.String;
+    tipo_utente: Schema.Attribute.Enumeration<['client', 'host', 'admin']> &
+      Schema.Attribute.DefaultTo<'client'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -923,6 +970,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::specifica.specifica': ApiSpecificaSpecifica;
       'api::stanza.stanza': ApiStanzaStanza;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

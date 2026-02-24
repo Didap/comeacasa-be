@@ -1,0 +1,35 @@
+{
+    "collectionName": "components_shared_indirizzos",
+    "info": {
+        "displayName": "Indirizzo",
+        "icon": "pinMap",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "via_piazza": {
+            "type": "string",
+            "required": true
+        },
+        "civico": {
+            "type": "string"
+        },
+        "cap": {
+            "type": "string"
+        },
+        "citta": {
+            "type": "string",
+            "required": true
+        },
+        "provincia": {
+            "type": "string",
+            "maxLength": 2
+        },
+        "latitudine": {
+            "type": "decimal"
+        },
+        "longitudine": {
+            "type": "decimal"
+        }
+    }
+}

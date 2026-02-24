@@ -1,0 +1,39 @@
+{
+    "kind": "collectionType",
+    "collectionName": "specifiche",
+    "info": {
+        "singularName": "specifica",
+        "pluralName": "specifiche",
+        "displayName": "Specifica",
+        "description": "Servizi e regole della casa"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "nome": {
+            "type": "string",
+            "required": true
+        },
+        "icona": {
+            "type": "string",
+            "required": true
+        },
+        "tipologia": {
+            "type": "enumeration",
+            "enum": [
+                "service",
+                "rule"
+            ],
+            "required": true,
+            "default": "service"
+        },
+        "stanze": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::stanza.stanza",
+            "mappedBy": "specifiche"
+        }
+    }
+}
