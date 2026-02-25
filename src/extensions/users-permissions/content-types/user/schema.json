@@ -78,11 +78,11 @@
     "tipo_utente": {
       "type": "enumeration",
       "enum": [
-        "client",
-        "host",
+        "ragazzo",
+        "anziano",
         "admin"
       ],
-      "default": "client"
+      "default": "ragazzo"
     },
     "foto_profilo": {
       "type": "media",

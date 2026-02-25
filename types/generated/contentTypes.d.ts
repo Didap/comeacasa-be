@@ -946,8 +946,8 @@ export interface PluginUsersPermissionsUser
     >;
     stanze: Schema.Attribute.Relation<'oneToMany', 'api::stanza.stanza'>;
     telefono: Schema.Attribute.String;
-    tipo_utente: Schema.Attribute.Enumeration<['client', 'host', 'admin']> &
-      Schema.Attribute.DefaultTo<'client'>;
+    tipo_utente: Schema.Attribute.Enumeration<['ragazzo', 'anziano', 'admin']> &
+      Schema.Attribute.DefaultTo<'ragazzo'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
