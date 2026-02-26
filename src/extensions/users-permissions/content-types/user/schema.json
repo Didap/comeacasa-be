@@ -104,6 +104,22 @@
       "relation": "oneToMany",
       "target": "api::stanza.stanza",
       "mappedBy": "user"
+    },
+    "livello_auth": {
+      "type": "integer",
+      "default": 0
+    },
+    "badge_verificato": {
+      "type": "boolean",
+      "default": false
+    },
+    "otp_code": {
+      "type": "string",
+      "private": true
+    },
+    "otp_expiration": {
+      "type": "datetime",
+      "private": true
     }
   }
 }

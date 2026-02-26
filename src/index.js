@@ -34,7 +34,8 @@ module.exports = {
           'api::specifica.specifica.find',
           'api::specifica.specifica.findOne',
           'api::users-permissions.user.find',
-          'api::users-permissions.user.findOne'
+          'api::users-permissions.user.findOne',
+          'api::auth-custom.auth-custom.cieLogin'
         ],
         authenticated: [
           // Stanze - CRUD completi
@@ -53,7 +54,10 @@ module.exports = {
           'plugin::upload.content-api.upload',
           'plugin::upload.content-api.find',
           'plugin::upload.content-api.findOne',
-          'plugin::upload.content-api.destroy'
+          'plugin::upload.content-api.destroy',
+          // Autenticazione Avanzata (OTP)
+          'api::auth-custom.auth-custom.sendOtp',
+          'api::auth-custom.auth-custom.verifyOtp'
         ],
         admin: [
           // Stanze

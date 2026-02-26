@@ -910,6 +910,8 @@ export interface PluginUsersPermissionsUser
     draftAndPublish: false;
   };
   attributes: {
+    badge_verificato: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     cognome: Schema.Attribute.String;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
@@ -925,6 +927,7 @@ export interface PluginUsersPermissionsUser
         minLength: 6;
       }>;
     foto_profilo: Schema.Attribute.Media<'images'>;
+    livello_auth: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -932,6 +935,8 @@ export interface PluginUsersPermissionsUser
     > &
       Schema.Attribute.Private;
     nome: Schema.Attribute.String;
+    otp_code: Schema.Attribute.String & Schema.Attribute.Private;
+    otp_expiration: Schema.Attribute.DateTime & Schema.Attribute.Private;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
